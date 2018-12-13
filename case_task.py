@@ -7,15 +7,15 @@ import parse
 
 def get_fields(self):
     # Retrieve the general information
-    content = "Task details: \n"
+    content = "<p><b>Task details </b></p>"
     title = self.get_param('data.title', None, 'Title is missing')
     group = self.get_param('data.group', None, 'group is missing')
     status = self.get_param('data.status', None, 'status is missing')
     assignee = self.get_param('data.owner', None, 'assignee is missing')
-    content = "Title: " + title + "\n"
-    content = content + "Task group: " + group + "\n"
-    content = content + "Status: " + status + "\n"  
-    content = content + "Assignee: " + assignee + "\n"
+    content = "<p><b> Title:</b> " + title + "<br>"
+    content = content + "<b>Task group:</b> " + group + "<br>"
+    content = content + "<b>Status:</b> " + status + "<br>"  
+    content = content + "<b>Assignee:</b> " + assignee + "<br> </p>"
 
     # Parse the description
     description = self.get_param('data.description', None, 'No description provided!')

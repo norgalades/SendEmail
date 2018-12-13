@@ -69,7 +69,7 @@ class Mailer(Responder):
         msg['Subject'] = fields['subject']
         msg['From'] = self.mail_from
         msg['To'] = ', '.join(fields['addresses'])
-        msg.attach(MIMEText(fields['body'], 'plain'))
+        msg.attach(MIMEText(fields['body'], 'html'))
 
         s = smtplib.SMTP(self.smtp_host)
         s.sendmail(self.mail_from, fields['addresses'], msg.as_string())

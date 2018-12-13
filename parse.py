@@ -4,7 +4,11 @@ import re
 
 
 def split_content(content):
-    chunks = {'addresses': [], 'subject': "", 'body': ""}
+    chunks = {
+	'addresses': [], 
+	'subject': "", 
+	'body': "<html> <head> </head> <body>"
+	}
     # Parser can be equal to 'mailto', 'subject' or  'body'
     parser = ""
 
@@ -45,9 +49,11 @@ def split_content(content):
             # Parse the body
 	    body = re.split("body:", line.strip())
 	    if len(body) == 2:
-	        chunks['body'] = chunks['body'] + body[1] + " \n" 
+	        chunks['body'] = chunks['body'] + body[1] + "<br>" 
 	    else: 
-	        chunks['body'] = chunks['body'] + body[0] + " \n" 
+	        chunks['body'] = chunks['body'] + body[0] + "<br>"
+		
+    chunks['body'] = chunks['body'] + "</body> </html>" 
     # print("Result: ")
     # print(chunks)
 
