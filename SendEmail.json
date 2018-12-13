@@ -2,7 +2,7 @@
   "name": "SendEmail",
   "version": "1.0",
   "author": "Michela Lecce",
-  "url": "https://github.com/TheHive-Project/Cortex-Analyzers",
+  "url": "https://github.com/norgalades/SendEmail",
   "license": "AGPL-V3",
   "description": "Send an email from a TheHive task / task log",
   "dataTypeList": ["thehive:case_task", "thehive:case_task_log"],
