@@ -5,6 +5,7 @@ from cortexutils.responder import Responder
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.mime.image import MIMEImage
 from enum import Enum
 import re
 import case_task
@@ -20,7 +21,16 @@ class Mailer(Responder):
             'config.smtp_host', 'localhost')
         self.mail_from = self.get_param(
             'config.from', None, 'Missing sender email address')
-    
+
+    def verify_addr(self, addresses):
+        # Verify the list of recepients
+	for addr in addresses:
+	    server = smtplib.SMTP('webmail.amadeus.com')
+	    result = server.verify(addr)
+	    if result != 250: 
+                # Address is not valid, report an error
+                self.error('one of the recipient address is not valid')
+ 
     def case_header(self):
         content = ""
 	title = self.get_param('data.title', None, 'title is missing')
@@ -68,13 +78,14 @@ class Mailer(Responder):
         msg = MIMEMultipart()
         msg['Subject'] = fields['subject']
         msg['From'] = self.mail_from
+	#self.verify_addr(fields['addresses'])
         msg['To'] = ', '.join(fields['addresses'])
         msg.attach(MIMEText(fields['body'], 'html'))
 
         s = smtplib.SMTP(self.smtp_host)
         s.sendmail(self.mail_from, fields['addresses'], msg.as_string())
         s.quit()
-        self.report({'message': 'message sent'})
+        self.report({'message': 'Your message has been sent!'})
 
     def operations(self, raw):
         return [self.build_operation('AddTagToCase', tag='mail sent')]

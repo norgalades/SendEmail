@@ -4,18 +4,25 @@
   "author": "Michela Lecce",
   "url": "https://github.com/norgalades/SendEmail",
   "license": "AGPL-V3",
-  "description": "Send an email from a TheHive task / task log",
+  "description": "Send an email from a TheHive task / task log. MANDATORY syntax: mailto: example@amadeus.com; subject: Email subject; body: Write here what you need!",
   "dataTypeList": ["thehive:case_task", "thehive:case_task_log"],
   "command": "SendEmail/send_email.py",
   "baseConfig": "SendEmail",
   "configurationItems": [
+    {
+      "name": "address check",
+      "description": "if you want to enable the email addresses verification",
+      "type": "boolean",
+      "multi": false,
+      "required": true
+    },
     {
       "name": "from",
       "description": "email address from which the mail is send",
       "type": "string",
       "multi": false,
       "required": true
-    },
+    }, 
     {
       "name": "smtp_host",
       "description": "SMTP server used to send mail",
